@@ -1,0 +1,85 @@
+Exercice #1
+
+mysql-ctl start
+mysql --user martimax21
+
+Exercice #2
+
+create database decodemtl_test;
+create database decodemtl_addressbook;
+
+Exercice #3
+
+drop database decodemtl_test;
+
+Exercice #4
+
+show databases;
+
+Exercise #5
+//Create table Account for database decodemtl_addressbook
+//Create table AddressBook for database decodemtl_addressbook
+//Create table Entry for database decodemtl_addressbook
+//Create table Test for database decodemtl_addressbook
+
+use decodemtl_addressbook
+create table Account (id INT AUTO_INCREMENT PRIMARY KEY);
+create table AddressBook (id INT AUTO_INCREMENT PRIMARY KEY);
+create table Entry (id INT AUTO_INCREMENT PRIMARY KEY);
+create table Test (id INT AUTO_INCREMENT PRIMARY KEY);
+
+Exercice #6
+
+drop table test;
+
+Exercice #7
+
+show tables;
+
+Exercice #8
+
+//Reflect the data model shown in schema/addressbook_denormalized.png within database decodemtl_addressbook
+//Account.id is a primary auto-increment key
+//AddressBook.id is a primary auto-increment key
+//Entry.id is a primary auto-increment key
+//Entry.type is an ENUM column permitting home, work and other
+//Entry.subtype is an ENUM column permitting phone, address and email
+
+ALTER TABLE Entry ADD COLUMN type enum('home','work','other');
+ALTER TABLE Account ADD COLUMN (email varchar(255), password varchar(40), createOn Datetime, modifiedOn Datetime);
+ALTER TABLE AddressBook ADD COLUMN (accountId INT, name varchar(255), createOn Datetime, modifiedOn Datetime);
+ALTER TABLE Entry ADD COLUMN (addressBookid INT, firstName varchar(255), lastName varchar(255), birthday Datetime, 
+subtype enum('phone','address', 'email'), contentLineOne varchar(255), contentLineTwo varchar(255), contentLineThree
+varchar(255), contentLineFour varchar(255), contentLineFive varchar(255));
+
+Exercise 9
+
+//Create a data model representing a Barn with Chickens :hatching_chick:
+//This model should provide answers to the following questions:
+//How many rooster, hen and chicks existed in the Barn on a specific date
+//How many chicks will come to age on a specific date
+
+create database BarnWithChickens;
+create table barn(Birthday datetime, animaltype enum('rooster', 'hen', 'chick'));
+ALTER TABLE barn ADD COLUMN (id INT AUTO_INCREMENT PRIMARY KEY);
+SELECT * FROM barn WHERE Birthday > 2012-01-01;
+SELECT * FROM barn WHERE animaltype = "chick" and Birthday > 2016-07-01;
+
+
+
+Exercise 10 (Workshop Challenge)
+Create a data model representing a Hotel with Floors and Rooms :hotel:
+This model should provide answers to the following questions:
+The list of Rooms available for rent on a specific date
+The list of Rooms which can be occupied by at least 3 people on a specific date
+The amount of unrentable Rooms (janitor closets, public laundry room, gym, etc.)
+The amount of Rooms having a private Kitchen
+The average amount of windows per Floor
+The amount of Floors having Rooms with carpets
+
+create database Hotel;
+CREATE TABLE rooms (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    room number INT,
+    availability ENUM('vacant', 'occupied'),
+);
